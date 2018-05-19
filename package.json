@@ -1,0 +1,10 @@
+{
+  "name": "react_demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "create-react-class": "^15.6.3",
+    "react": "^16.3.2"
+  }
+}
