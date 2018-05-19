@@ -1,10 +1,14 @@
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import App from "../elements/App";
+
 const ROUTES = {
     home: '#all',
     completeTasks: '#complete-tasks',
     incompleteTasks: '#incomplete-tasks',
 }
 
-class TaskApp extends React.Component {
+class TaskContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -53,10 +57,10 @@ class TaskApp extends React.Component {
     renderRoute() {
         switch(this.state.currentRoute) {
             case ROUTES.home: return <App tasks={this.allTasks()} title="All tasks" />;
-    case ROUTES.completeTasks: return <App tasks={this.completeTasks()} title="Complete tasks" />;
-    case ROUTES.incompleteTasks: return <App tasks={this.incompleteTasks()} title="Incomplete tasks" />;
-    default: return <NotFound />;
-    }
+            case ROUTES.completeTasks: return <App tasks={this.completeTasks()} title="Complete tasks" />;
+            case ROUTES.incompleteTasks: return <App tasks={this.incompleteTasks()} title="Incomplete tasks" />;
+            default: return <NotFound />;
+        }
     }
 
     addTask(e) {
@@ -80,42 +84,29 @@ class TaskApp extends React.Component {
     render() {
         return (
             <div>
-            <ul>
-            <li><a href={ROUTES.home}>All tasks</a></li>
-        <li><a href={ROUTES.completeTasks}>Complete tasks</a></li>
-        <li><a href={ROUTES.incompleteTasks}>Incomplete tasks</a></li>
-        </ul>
+                <ul>
+                    <li><a href={ROUTES.home}>All tasks</a></li>
+                    <li><a href={ROUTES.completeTasks}>Complete tasks</a></li>
+                    <li><a href={ROUTES.incompleteTasks}>Incomplete tasks</a></li>
+                </ul>
 
-        <form onSubmit={this.addTask} ref={ input => this.addTaskForm = input }>
-    <input type="text"
-        defaultValue="Enter a new task"
-        ref={ input => this.newTaskDescription = input }
-        required
-        placeholder="Enter a description"/>
-            <input type="submit" value="Add Task"/>
-            </form>
+                <form onSubmit={this.addTask} ref={ input => this.addTaskForm = input }>
+                    <input type="text"
+                           defaultValue="Enter a new task"
+                           ref={ input => this.newTaskDescription = input }
+                           required
+                           placeholder="Enter a description"/>
+                    <button type="submit">Add Task</button>
+                </form>
 
-        {this.renderRoute()}
-    </div>
-    )
+                {this.renderRoute()}
+            </div>
+        )
     }
 }
 
-const App = (props) => (
-    <div>
-    <h1>{props.title}</h1>
-{ props.tasks.map(task => <Task key={task.id} task={task} />) }
-</div>
-);
+const NotFound = () => <h1>Page not found</h1>;
 
-    const Task = (props) => {
-        const placeholder = props.task.complete
-            ? <strike>#{props.task.id} - {props.task.description}</strike>
-    : <span>#{props.task.id} - {props.task.description}</span>;
-
-        return <article><h1>{placeholder}</h1></article>
-    };
-
-    const NotFound = () => <h1>Page not found</h1>;
-
-    ReactDOM.render(<TaskApp />, document.getElementById('tasklist'));
+const wrapper = document.getElementById("tasklist");
+wrapper ? ReactDOM.render(<TaskContainer />, wrapper) : false;
+export default TaskContainer;

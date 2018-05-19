@@ -2,5 +2,5 @@
   "open": false,
   "server": true,
   "port": 3000,
-  "files": ["./**/*.(js|html|css)"]
+  "files": ["dist/*.(js|html|css)"]
 }
