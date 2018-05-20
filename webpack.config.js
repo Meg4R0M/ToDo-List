@@ -2,8 +2,12 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production';
 module.exports = {
+    entry: {
+        styles: ['./src/scss/main.scss'],
+        scripts: ['./src/js/components/container/TaskContainer.js']
+    },
     output: {
-        filename: 'main.js',
+        filename: '[name].js',
     },
     module: {
         rules: [
